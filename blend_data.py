@@ -18,7 +18,7 @@ def main():
 	url_old_monthly = 'ftp://data.iac.ethz.ch/CMIP6/input4MIPs/UoM/GHGConc/CMIP/mon/atmos/UoM-CMIP-1-1-0/GHGConc/gr3-GMNHSH/v20160701/mole_fraction_of_carbon_dioxide_in_air_input4MIPs_GHGConcentrations_CMIP_UoM-CMIP-1-1-0_gr3-GMNHSH_000001-201412.csv'
 	
 	# use local files
-	url_new_daily = INPUT_DATA + os.sep + input_url_new_daily.split('/')[-1]
+	url_new_daily = INPUT_DATA + os.sep + url_new_daily.split('/')[-1]
 	url_old_monthly = INPUT_DATA + os.sep + url_old_monthly.split('/')[-1]
 
 	df_daily = get_new_daily(url_new_daily)
