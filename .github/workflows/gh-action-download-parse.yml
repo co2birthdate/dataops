@@ -17,9 +17,7 @@ jobs:
       uses: wei/wget@v1
       with:
         args: -O input_data/daily_in_situ_co2_mlo.csv https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv
-  
-    steps:
-    - uses: actions/checkout@v2
+ 
     - uses: actions/setup-python@v2
       with:
         python-version: '3.8'
