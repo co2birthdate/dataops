@@ -31,7 +31,7 @@ jobs:
         python plot_data.py
     
     - name: push
-      uses: github-actions-x/commit@v2.7
+      uses: github-actions-x/commit@v2.6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         push-branch: 'master'
@@ -40,3 +40,4 @@ jobs:
         files: output_data/latest.json output_data/co2.csv output_data/co2.json input_data/daily_in_situ_co2_mlo.csv data_availability.png
         name: philshem
         email: philshem@pm.me
+        rebase: 'true'  
