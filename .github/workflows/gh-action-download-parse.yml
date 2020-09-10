@@ -29,14 +29,11 @@ jobs:
         python blend_data.py
         python plot_data.py
     
-    - name: push
-      uses: github-actions-x/commit@v2.6
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: 'master'
-        files: output_data/latest.json output_data/co2.csv output_data/co2.json input_data/daily_in_situ_co2_mlo.csv data_availability.png
-        commit-message: 'update parsed data'
-        force-add: 'true'
-        name: philshem
-        email: philshem@pm.me
-        rebase: 'true'  
+    - name: Commit report
+      run: |
+        git config --global user.name 'philshem'
+        git config --global user.email 'philshem@users.noreply.github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git checkout master
+        git commit -am "auto commit - update data"
+        git push
