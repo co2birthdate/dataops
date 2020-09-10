@@ -35,9 +35,10 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         push-branch: master
+        files: output_data/latest.json output_data/co2.csv output_data/co2.json input_data/daily_in_situ_co2_mlo.csv data_availability.png
         name: GitHub Action Bot
         email: philshem@pm.me
-        commit-message: Update daily csv
+        commit-message: Update parsed data
         rebase: 'true'
             
   #  - name: Get current unix timestamp
