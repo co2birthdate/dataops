@@ -30,14 +30,18 @@ jobs:
       run: |
         python blend_data.py
         python plot_data.py
+    
+    - name: Push new files back to master.
+      uses: mikeal/publish-to-github-action@1.0.0
 
-    - name: push
-      uses: github-actions-x/commit@v2.7
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: 'master'
-        commit-message: 'auto-data-update'
-        force-add: 'true'
-        files: input_data/* output_data/* data_availability.png
-        name: philshem
-        email: philshem@pm.me
+
+  # - name: push
+  #    uses: github-actions-x/commit@v2.7
+  #    with:
+  #      github-token: ${{ secrets.GITHUB_TOKEN }}
+  #      push-branch: 'master'
+  #      commit-message: 'auto-data-update'
+  #      force-add: 'true'
+  #      files: input_data/* output_data/* data_availability.png
+  #      name: philshem
+  #      email: philshem@pm.me
