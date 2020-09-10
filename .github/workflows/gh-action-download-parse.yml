@@ -30,9 +30,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        
+
     - name: Fetch new data
-      run: python3.8 blend_data.py
+      run: ./automation/run.sh
+      
+   # - name: Fetch new data
+   #   run: python3.8 blend_data.py
 
     - name: Commit and push to repo
       uses: github-actions-x/commit@v2.7
