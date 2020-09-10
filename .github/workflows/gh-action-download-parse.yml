@@ -29,38 +29,14 @@ jobs:
       run: |
         python blend_data.py
         python plot_data.py
-
-    - name: Commit and push to repo
+    
+    - name: push
       uses: github-actions-x/commit@v2.7
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        push-branch: master
+        push-branch: 'master'
+        commit-message: 'update parsed data'
+        force-add: 'true'
         files: output_data/latest.json output_data/co2.csv output_data/co2.json input_data/daily_in_situ_co2_mlo.csv data_availability.png
-        name: GitHub Action Bot
+        name: philshem
         email: philshem@pm.me
-        commit-message: Update parsed data
-        rebase: 'true'
-            
-  #  - name: Get current unix timestamp
-  #    if: always()
-  #    id: date
-  #    run: echo "::set-output name=ts::$(date +'%s')"
-
-   # - name: Notify slack failure
-   #   if: ${{ failure()  || cancelled() }}
-   #   env:
-   #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-   #   uses: pullreminders/slack-action@master
-   #   with:
-   #       args: '{\"channel\":\"C014Y6SHE12\", \"attachments\": [{\"fallback\": \"Job failed.\", \"color\": \"danger\", \"title\": \"Fetch badi counter job failed\", \"title_link\": \"https://github.com/opendatazurich/opendatazurich.github.io/actions/runs/${{ github.run_id }}?check_suite_focus=true\", \"text\": \":x: Update failed\", \"footer\": \"<https://github.com/opendatazurich/opendatazurich.github.io/actions|opendatazurich/opendatazurich.github.io>\", \"footer_icon\": \"https://github.com/abinoda/slack-action/raw/master/docs/app-icons/github-icon.png\", \"ts\": \"${{steps.date.outputs.ts}}\"}]}'
-
-
-#on: push
-#jobs:
-#  wget:
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: wget
-#      uses: wei/wget@v1
-#      with:
-#        args: -O daily_in_situ_co2_mlo.csv https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv
