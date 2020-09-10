@@ -32,8 +32,9 @@ jobs:
         python plot_data.py
     
     - name: Push new files back to master.
-      uses: mikeal/publish-to-github-action@1.0.0
-
+    - uses: mikeal/publish-to-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # - name: push
   #    uses: github-actions-x/commit@v2.7
