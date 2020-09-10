@@ -30,6 +30,14 @@ jobs:
       run: |
         python blend_data.py
         python plot_data.py
+<<<<<<< HEAD
+=======
+    
+    - name: Push new files back to master.
+      uses: mikeal/publish-to-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+>>>>>>> 261ffd37b6b450a2bfac290c56bf810d42bd4cbf
 
     - name: push
       uses: github-actions-x/commit@v2.7
