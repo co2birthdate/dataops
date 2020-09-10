@@ -1,9 +1,9 @@
 name: download and parse and git checkin
 
 on:
-  push:
-  #schedule:
-  #  - cron:  '*/10 * * * *' # run every 20min
+  #push:
+  schedule:
+    - cron:  '0 22 * * *' # run at 22 UTC, one time per day
 
 jobs:
   get_newest_data:
