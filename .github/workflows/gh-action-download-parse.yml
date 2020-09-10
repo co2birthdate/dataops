@@ -1,0 +1,69 @@
+name: download and git checkin
+
+on:
+  push:
+  #schedule:
+  #  - cron:  '*/10 * * * *' # run every 20min
+  #workflow_dispatch:
+
+jobs:
+  get_newest_data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: wget daily
+      uses: wei/wget@v1
+      with:
+        args: -O input_data/daily_in_situ_co2_mlo.csv https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv
+  
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    #- name: Remove broken apt repos
+    #  run: |
+    #   for apt_file in `grep -lr microsoft /etc/apt/sources.list.d/`; do sudo rm $apt_file; done
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Fetch new data
+      run: python3.8 blend_data.py
+
+    - name: Commit and push to repo
+      uses: github-actions-x/commit@v2.7
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        push-branch: master
+        name: GitHub Action Bot
+        email: philshem@pm.me
+        commit-message: Update daily csv
+        rebase: 'true'
+            
+  #  - name: Get current unix timestamp
+  #    if: always()
+  #    id: date
+  #    run: echo "::set-output name=ts::$(date +'%s')"
+
+   # - name: Notify slack failure
+   #   if: ${{ failure()  || cancelled() }}
+   #   env:
+   #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+   #   uses: pullreminders/slack-action@master
+   #   with:
+   #       args: '{\"channel\":\"C014Y6SHE12\", \"attachments\": [{\"fallback\": \"Job failed.\", \"color\": \"danger\", \"title\": \"Fetch badi counter job failed\", \"title_link\": \"https://github.com/opendatazurich/opendatazurich.github.io/actions/runs/${{ github.run_id }}?check_suite_focus=true\", \"text\": \":x: Update failed\", \"footer\": \"<https://github.com/opendatazurich/opendatazurich.github.io/actions|opendatazurich/opendatazurich.github.io>\", \"footer_icon\": \"https://github.com/abinoda/slack-action/raw/master/docs/app-icons/github-icon.png\", \"ts\": \"${{steps.date.outputs.ts}}\"}]}'
+
+
+#on: push
+#jobs:
+#  wget:
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: wget
+#      uses: wei/wget@v1
+#      with:
+#        args: -O daily_in_situ_co2_mlo.csv https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv
