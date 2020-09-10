@@ -21,12 +21,15 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: '3.8'
-    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
     - name: run parsing script
-    - run: |
-       pip install -r requirements.txt
-       python blend_data.py
-    
+      run: |
+        python blend_data.py
+        python plot_data.py
+
     - name: Commit and push to repo
       uses: github-actions-x/commit@v2.7
       with:
