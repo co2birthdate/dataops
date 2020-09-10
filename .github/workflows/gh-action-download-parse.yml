@@ -4,7 +4,6 @@ on:
   push:
   #schedule:
   #  - cron:  '*/10 * * * *' # run every 20min
-  #workflow_dispatch:
 
 jobs:
   get_newest_data:
@@ -35,9 +34,9 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         push-branch: 'master'
+        files: output_data/latest.json output_data/co2.csv output_data/co2.json input_data/daily_in_situ_co2_mlo.csv data_availability.png
         commit-message: 'update parsed data'
         force-add: 'true'
-        files: output_data/latest.json output_data/co2.csv output_data/co2.json input_data/daily_in_situ_co2_mlo.csv data_availability.png
         name: philshem
         email: philshem@pm.me
         rebase: 'true'  
