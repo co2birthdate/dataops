@@ -1,6 +1,16 @@
-# dataops
+# About this data
 
-## collecting the data
+This repository collects the latest daily atmospheric carbon dioxide (CO2) measurements from Mauna Loa Observatory, Hawaii made available by the [Scripps CO2 Program](https://scrippsco2.ucsd.edu/data/atmospheric_co2/mlo.html). We use the daily values, which go back to 1958.
+
+For pre-1958, we use a monthly dataset from the ETH-Zürich _Institute for Atmospheric and Climate Science_.
+
+The data from the two datasets are blended together with the python3 script [`blend_data.py`](https://github.com/co2birthdate/dataops/blob/master/blend_data.py) in this repository. In order to provide an "actual" daily value, missing dates are interpolated to a day-level resolution.
+
+![blended data](https://github.com/co2birthdate/dataops/raw/master/data_availability.png)
+
+Units _ppm_ stand for "parts per million". Read more about atmospheric CO2 [here](https://en.wikipedia.org/wiki/Carbon_dioxide_in_Earth%27s_atmosphere).
+
+## raw data
 
 this code takes two CSV files containg atmospheric co2 ppm data
 
@@ -8,23 +18,20 @@ this code takes two CSV files containg atmospheric co2 ppm data
 
 + **new:** with daily data from roughly 1958 to present ([raw data](https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv))
 
-## merging the data
 
-then the code merges the data into one dataframe
+## data output
 
-## writing the data
+and writes to files to the [`output_data/`](https://github.com/co2birthdate/dataops/tree/master/output_data) folder:
 
-and writes to files to the `output_data/` folder:
++ [co2.json](https://github.com/co2birthdate/dataops/raw/master/output_data/co2.json)
 
-+ co2.json
-
-+ co2.csv
++ [co2.csv](https://github.com/co2birthdate/dataops/raw/master/output_data/co2.csv)
 
 both contain CO2 data in parts per million (ppm) interpolated for every calendar date for possible birthdates until present
 
 and the file
 
-+ latest.json
++ [latest.json](https://raw.githubusercontent.com/co2birthdate/dataops/master/output_data/latest.json)
 
 which contains the latest value with this form
 
@@ -33,6 +40,8 @@ which contains the latest value with this form
   "2020-08-17":412.59
 }
 ```
+
+These files are picked up by the [`builder.py`](https://github.com/co2birthdate/website/blob/master/assets/py/builder.py) script in the website repository.
 
 
 
