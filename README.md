@@ -18,8 +18,7 @@ this code takes two CSV files containg atmospheric co2 ppm data
 
 + **new:** with daily data from roughly 1958 to present https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv
 
-
-## data output
+## data output
 
 and writes to files to the [`output_data/`](https://github.com/co2birthdate/dataops/tree/master/output_data) folder:
 
