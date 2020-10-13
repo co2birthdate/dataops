@@ -5,12 +5,13 @@ for export to the public html repo
 '''
 
 import pandas as pd
+from datetime import datetime
 import os, os.path
 
 INPUT_DATA = 'input_data'
 OUTPUT_DATA = 'output_data'
 
-START_YEAR = 1899
+START_YEAR = 1900
 
 def main():
 
@@ -38,15 +39,19 @@ def generate_max(df):
 	# finds most recent value and its corresponding date
 	
 	df = df.last('1D')
-	df.index = df.index.strftime('%Y-%m-%d')
-	df.to_json(OUTPUT_DATA + os.sep + 'latest.json', orient='columns', indent = 2)
-	
+	df = df.reset_index()
+	df['date'] = df.date.dt.strftime('%Y-%m-%d')
+	#df.index = df.index.strftime('%Y-%m-%d')
+
+	# use iloc[0] which tells .to_json() to print a simple dict, and not an array with one dict
+	# https://stackoverflow.com/q/64330452/2327328
+	df.iloc[0].to_json(OUTPUT_DATA + os.sep + 'latest.json', orient='index', indent = 2)
+
 	return
 
 def generate_files(df):
 
 	# write csv and json files
-
 	if True: # csv
 		df.to_csv(OUTPUT_DATA + os.sep + 'co2.csv',index=True)
 
@@ -54,9 +59,9 @@ def generate_files(df):
 		# json
 		# some funky index stuff to get simple key-value dict
 		df = df.reset_index()
-		df['date'] = df['date'].dt.strftime('%Y-%m-%d')
-		df.set_index('date',inplace=True)
-		df.co2.to_json(OUTPUT_DATA + os.sep + 'co2.json', orient='columns', indent = 2)
+		df['date'] = df.date.dt.strftime('%Y-%m-%d')
+		#df.set_index('date',inplace=True)
+		df.to_json(OUTPUT_DATA + os.sep + 'co2.json', orient='records', indent = 2)
 
 	return True
 
@@ -67,6 +72,12 @@ def resample_daily(df):
 
 	df = df.resample('1d').interpolate()
 
+	# re-filter, since old data is only monthly
+	df = df[df.index >= datetime(year=START_YEAR,month=1,day=1)]
+
+	# round co2 measurements to one decimal place
+	df = df.round(1)
+
 	return df
 
 def merge_data(df1, df2):
@@ -76,10 +87,10 @@ def merge_data(df1, df2):
 
 	df = df1.merge(df2, how='outer', left_index=True, right_index=True)
 
-	df['co2'] = df.co2_new.fillna(df.co2_old)
+	df['ppm'] = df.co2_new.fillna(df.co2_old)
 
 	# keep only one column, drop nulls
-	df = df['co2'].dropna()
+	df = df['ppm'].dropna()
 
 	return df
 
@@ -109,7 +120,7 @@ def get_old_monthly(url):
 	df = pd.read_csv(url)
 
 	# some funky stuff since datetime doesn't like year 0
-	df = df[df.year >= START_YEAR]
+	df = df[df.year >= START_YEAR - 1]
 	df['date'] = pd.to_datetime(df.datetime,errors='coerce').dt.date
 	df = df[['date', 'data_mean_global']]
 

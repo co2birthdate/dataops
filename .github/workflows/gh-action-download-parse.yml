@@ -30,7 +30,6 @@ jobs:
       run: |
         python blend_data.py
         python plot_data.py
-        python runtime.py
 
     - name: push
       uses: github-actions-x/commit@v2.7
@@ -39,6 +38,6 @@ jobs:
         push-branch: 'master'
         commit-message: 'auto-data-update'
         force-add: 'true'
-        files: input_data/* output_data/* logs/* data_availability.png
+        files: input_data/* output_data/* data_availability.png
         name: philshem
         email: philshem@pm.me

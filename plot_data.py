@@ -16,7 +16,7 @@ def main():
 	#print(df)
 	#df.set_index('date')
 
-	df.plot(x='date', y='co2', legend=False)
+	df.plot(x='date', y='ppm', legend=False)
 	plt.ylabel('CO₂ ppm')
 	plt.xlabel(None)
 
