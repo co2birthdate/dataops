@@ -1,5 +1,7 @@
 # About this data
 
+![download and parse and git checkin](https://github.com/co2birthdate/dataops/workflows/download%20and%20parse%20and%20git%20checkin/badge.svg?branch=master)
+
 This repository merges CO2 measurement datasets to provide a daily value going back to the year 1900.
 
 > While CO2 absorption and release is always happening as a result of natural processes, the recent rise in CO2 levels in the atmosphere is known to be mainly due to human (anthropogenic) activity.
