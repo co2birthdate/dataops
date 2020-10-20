@@ -30,14 +30,24 @@ def main():
 
 	df = resample_daily(df)
 
-	generate_files(df)
+	if check_latest(df):
+		generate_files(df)
+		generate_max(df)
 
-	generate_max(df)
+	else:
+		print('WARNING: data quality issues.')
+
+
+def check_latest(df):
+	# latest available data should be within ~30 days
+	# otherwise, there could be a data quality issue
+	latest = df.last('1D').index[0]
+	status = (datetime.now() - latest).days < 31
+	return status
 
 def generate_max(df):
 
 	# finds most recent value and its corresponding date
-	
 	df = df.last('1D')
 	df = df.reset_index()
 	df['date'] = df.date.dt.strftime('%Y-%m-%d')
