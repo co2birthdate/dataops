@@ -39,10 +39,10 @@ def main():
 
 
 def check_latest(df):
-	# latest available data should be within ~30 days
+	# latest available data should be within ~60 days
 	# otherwise, there could be a data quality issue
 	latest = df.last('1D').index[0]
-	status = (datetime.now() - latest).days < 31
+	status = (datetime.now() - latest).days < 60
 	return status
 
 def generate_max(df):
