@@ -3,7 +3,7 @@ name: download and parse and git checkin
 on:
   #push:
   schedule:
-    - cron:  '0 22 * * *' # run at 22 UTC, one time per day
+    - cron:  '0 4 * * */7' # run at 4 UTC, one time per week
 
 jobs:
   get_newest_data:
