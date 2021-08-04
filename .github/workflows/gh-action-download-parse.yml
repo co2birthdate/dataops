@@ -11,11 +11,11 @@ jobs:
     timeout-minutes: 10
 
     steps:
-    - uses: actions/checkout@v2
-    - name: wget daily
-      uses: wei/wget@v1
-      with:
-        args: -O input_data/daily_in_situ_co2_mlo.csv https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv
+    #- uses: actions/checkout@v2
+    #- name: wget daily
+    #  uses: wei/wget@v1
+    #  with:
+    #    args: -O input_data/daily_in_situ_co2_mlo.csv https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv
  
     - uses: actions/setup-python@v2
       with:
