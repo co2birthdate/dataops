@@ -15,12 +15,13 @@ START_YEAR = 1900
 
 def main():
 
+	# wget https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv --no-check-certificate
 	url_new_daily = 'https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv'
 	#url_old_monthly = 'ftp://data.iac.ethz.ch/CMIP6/input4MIPs/UoM/GHGConc/CMIP/mon/atmos/UoM-CMIP-1-1-0/GHGConc/gr3-GMNHSH/v20160701/mole_fraction_of_carbon_dioxide_in_air_input4MIPs_GHGConcentrations_CMIP_UoM-CMIP-1-1-0_gr3-GMNHSH_000001-201412.csv'
 	url_old_monthly = 'https://raw.githubusercontent.com/co2birthdate/dataops/master/input_data/mole_fraction_of_carbon_dioxide_in_air_input4MIPs_GHGConcentrations_CMIP_UoM-CMIP-1-1-0_gr3-GMNHSH_000001-201412.csv'
 
 	# use local files
-	#url_new_daily = INPUT_DATA + os.sep + url_new_daily.split('/')[-1]
+	url_new_daily = INPUT_DATA + os.sep + url_new_daily.split('/')[-1]
 	#url_old_monthly = INPUT_DATA + os.sep + url_old_monthly.split('/')[-1]
 
 	df_daily = get_new_daily(url_new_daily)
