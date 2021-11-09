@@ -12,6 +12,10 @@ This repository merges CO2 measurement datasets to provide a daily value going b
 
 This repository collects the latest daily atmospheric carbon dioxide (CO2) measurements from Mauna Loa Observatory, Hawaii made available by the [Scripps CO2 Program](https://scrippsco2.ucsd.edu/data/atmospheric_co2/mlo.html). We use the daily values, which go back to 1958.
 
+Run this command
+
+    wget https://scrippsco2.ucsd.edu/assets/data/atmospheric/stations/in_situ_co2/daily/daily_in_situ_co2_mlo.csv -o input_data/daily_in_situ_co2_mlo.csv
+
 For pre-1958, we use a monthly dataset from the ETH-Zürich _Institute for Atmospheric and Climate Science_.
 
 ![blended data](https://github.com/co2birthdate/dataops/raw/master/data_availability.png)
